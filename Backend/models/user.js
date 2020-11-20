@@ -8,12 +8,18 @@ const userSchema=new mongoose.Schema({
     trim:true,
     required:true,
   },
+  isPasswordSet:{
+    type: Boolean,
+  },
   hashed_password:{
     type:String,
    required:true,
-
   },
 salt:String,
+history:{
+  type:Array,
+  default:[]
+}
 },{timestamps:true}
 );
 

@@ -56,3 +56,13 @@ exports.requireSignin = expressJwt({
   algorithms: ["HS256"], // added later
   userProperty: "auth",
 });
+exports.isAuth=(req,res,next)=>{
+console.log(req.profile._id);
+console.log(req.auth._id);
+ let user = req.profile && req.auth && req.profile._id == req.auth._id;
+
+  if(!user){
+    return res.status(403).json({error:"Access denied"});
+  }
+  next();
+};
