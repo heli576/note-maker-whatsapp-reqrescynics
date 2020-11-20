@@ -6,7 +6,7 @@ const {errorHandler}=require("../helpers/dbErrorHandler");
 
 
 // using promise
-/*exports.signup = (req, res) => {
+exports.signup = (req, res) => {
     // console.log("req.body", req.body);
     const user = new User(req.body);
     user.save((err, user) => {
@@ -22,7 +22,7 @@ const {errorHandler}=require("../helpers/dbErrorHandler");
             user
         });
     });
-};*/
+};
 
 exports.signin=(req,res)=>{
   //find user based on username
