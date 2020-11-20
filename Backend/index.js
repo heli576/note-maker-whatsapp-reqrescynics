@@ -1,13 +1,25 @@
+//external-packages
 require('dotenv').config();
 const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
+const mongoose = require("mongoose");
+const morgan=require("morgan");
+const bodyParser=require("body-parser");
+const cookieParser=require("cookie-parser");
+const expressValidator=require("express-validator");
+const cors=require("cors");
+
+////twilio_credentials
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
-const mongoose = require("mongoose");
 // const user = require("./users");
+
+//import ROUTES
+const authRoutes=require("./routes/auth");
+
 
 //---------- CONNECT TO MONGO DB ---------
 var mongourl = process.env.MONGO_URL;
@@ -25,14 +37,23 @@ async function connectToDB() {
 }
 connectToDB();
 
+//middlewares
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(expressValidator());
+app.use(cors());
+
+//routes middleware --all routes will begin with /api
+app.use("/api",authRoutes);
+
 //---------- ROUTES FOR FRONTEND ----------
 
 
 
+
 //---------- ROUTES FOR TWILIO ----------
-app.get("/api/", (request, response) => {
-  response.send("Backend active");
-});
+//Switch to req res
 
 app.post("/wa-api", (request, response) => {
   respond(request.body, request.body.From);
@@ -81,7 +102,10 @@ async function respond(msg, sender) //Takes in the message and decides what to d
     }
   }
 }
+
+
 //---------- UTILITY FUNCTIONS ----------
+
 async function sendMessage(messageText, reciever)//Sends messageText as WhatsApp message to reciever
 {
   try {
@@ -111,7 +135,14 @@ async function saveNote(note, username)
 {
   //Save note to mongoDB..
 }
+
+
 //---------- MISC ----------
+
 app.listen(process.env.PORT || 5000, () => {
   console.log("Backend Server is listening on port " + (process.env.PORT || 5000));
 });
+
+//USE MONGOURL FROM .ENV
+//ADD PAGE_ACCESS_TOKEN
+//DECIDE ABT NGROK
