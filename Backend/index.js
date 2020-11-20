@@ -263,7 +263,8 @@ async function handleMessage(sender_psid, received_message) {
     response = {
       text: replyText
     };
-  } else if (received_message.attachments) {
+  } 
+   if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     // console.log(attachment_url + ' received from ' + sender_psid);
@@ -347,16 +348,25 @@ function removePrefix(str)//Removes "whatsapp:+" prefix from the given string
 
 async function saveNote(noteText, username, source = "whatsapp", isAttachment = false) //Saves the note the MongoDB
 {
+  let tempUser = await user.findOne({username: `${username}`})
   let newNote = new note({
     noteText: noteText,
-    username: removePrefix(username),
-    createdAt: getdatestring(),
+    user: tempUser._id,
     source: source,
     isAttachment: isAttachment
   })
-
+  let historyArr = [newNote, ...tempUser.history]
+  // historyArr.push(newNote);
+  // console.log(history)
   try {
     await newNote.save();
+    await user.findOneAndUpdate({_id:tempUser._id},{history: historyArr})
+    //  (error,data)=>{
+    //   if(error){
+    //     console.log({
+    //       error:"Could not update history."
+    //     })
+    //   }})
   } catch (err) { console.log(err) }
 }
 
