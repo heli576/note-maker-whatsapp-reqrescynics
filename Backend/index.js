@@ -19,20 +19,11 @@ const authRoutes=require("./routes/auth");
 
 
 //---------- CONNECT TO MONGO DB ---------
-var mongourl = process.env.MONGO_URL;
-async function connectToDB() {
-  try {
-    await mongoose.connect(mongourl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    console.log("Connected to DB !!");
-  } catch (e) {
-    console.log(e);
-    throw e;
-  }
-}
-connectToDB();
+mongoose.connect(process.env.DATABASE,{
+  useNewUrlParser:true,
+  useCreateIndex:true,
+  useUnifiedTopology: true 
+}).then(()=>console.log("DB connected"));
 
 //middlewares
 app.use(morgan("dev"));
