@@ -12,6 +12,14 @@ const NoteSchema = mongoose.Schema({
   createdAt: {
     type: String,
     required: true
+  },
+  source: {
+    type: String,
+    required: true
+  },
+  isAttachment: {
+    type: String,
+    required: true
   }
 });
 

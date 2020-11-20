@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const cors = require("cors");
+const request = require('request')
 
 ////twilio_credentials
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -22,7 +23,8 @@ const psid = require("./models/psids");
 //import ROUTES
 const authRoutes = require("./routes/auth");
 const { post } = require('./routes/auth');
-const jwt = require('express-jwt');
+const Jwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
 
 
 //---------- CONNECT TO MONGO DB ---------
@@ -124,7 +126,7 @@ app.post("/wa-api/status", (request, response) => {
 
 async function respond(msg, sender) //Takes in the message and decides what to do with it.
 {
-  console.log(msg)
+  console.log(msg.Body + ' (from ' + sender +')')
   let tempUser = await user.findOne({ username: sender });
   if (tempUser) {
     if (tempUser.isPasswordSet == false) {
@@ -158,12 +160,23 @@ async function respond(msg, sender) //Takes in the message and decides what to d
       }
       else//Save the note
       {
-        try {
-          await sendMessage(`Note saved:\n${msg.Body}`, sender);
-          await saveNote(msg.Body, sender);
-        } catch (err) {
-          console.log(err)
+        if (msg.MediaUrl0) {
+          try {
+            await sendMessage(`Attachment saved`, sender);
+            await saveNote(msg.MediaUrl0, sender, "whatsapp", true);
+          } catch (err) {
+            console.log(err)
+          }
         }
+        else if (msg.Body && msg.body != '') {
+          try {
+            await sendMessage(`Note saved:\n${msg.Body}`, sender);
+            await saveNote(msg.Body, sender, "whatsapp", false);
+          } catch (err) {
+            console.log(err)
+          }
+        }
+
       }
 
     }
@@ -234,22 +247,24 @@ app.get("/mg-api/webhook", (req, res) => {
 
 async function handleMessage(sender_psid, received_message) {
   let response;
+  console.log(received_message)
 
   // Checks if the message contains text
   if (received_message.text) {
-    console.log(`Recieved text: "${received_message.text}" from ${sender_psid}`);
+    // console.log(`Recieved text: "${received_message.text}" from ${sender_psid}`);
 
     let replyText = '';
-    if (received_message.text.toLowerCase()) replyText = await frameMessengerReply(sender_psid, received_message.text);
+    if (received_message.text.toLowerCase()) replyText = await frameMessengerReply(sender_psid, received_message.text, false);
     response = {
       text: replyText
     };
   } else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    console.log(attachment_url + ' received from ' + sender_psid);
+    // console.log(attachment_url + ' received from ' + sender_psid);
+    let replyText = await frameMessengerReply(sender_psid, attachment_url, true);
     response = {
-      text: 'you sent some attachments ... '
+      text: replyText
     };
   }
 
@@ -325,12 +340,14 @@ function removePrefix(str)//Removes "whatsapp:+" prefix from the given string
   return newstr;
 }
 
-async function saveNote(noteText, username) //Saves the note the MongoDB
+async function saveNote(noteText, username, source = "whatsapp", isAttachment = false) //Saves the note the MongoDB
 {
   let newNote = new note({
     noteText: noteText,
     username: removePrefix(username),
-    createdAt: getdatestring()
+    createdAt: getdatestring(),
+    source: source,
+    isAttachment: isAttachment
   })
 
   try {
@@ -345,15 +362,17 @@ function getdatestring() {
   );
 }
 
-async function frameMessengerReply(user_psid, msgText)//Handles messages recieved on Messenger
+async function frameMessengerReply(user_psid, msgText, isAttachment)//Handles messages recieved on Messenger
 {
+  // console.log({isAttachment, msgText})
   let tempUser = await psid.findOne({ psid: user_psid });
   if (tempUser) {
-    await saveNote(msgText, 'whatsapp:+' + tempUser.username);
-    return 'Note saved.'
+    await saveNote(msgText, 'whatsapp:+' + tempUser.username, "messenger", isAttachment);
+    if(isAttachment) return "Attachment saved."
+    else return 'Note saved: ' + msgText
   }
   else {
-    return `Go to https://wa.me/%2B14155238886?text=link:${user_psid}`;
+    return `Go to https://wa.me/%2B14155238886?text=link:${user_psid} and proceed to send message to tie your WhatsApp account.`;
   }
 }
 
