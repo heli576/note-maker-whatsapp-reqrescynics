@@ -8,10 +8,12 @@ const userSchema=new mongoose.Schema({
     trim:true,
     required:true,
   },
+  isPasswordSet:{
+    type: Boolean,
+  },
   hashed_password:{
     type:String,
    required:true,
-
   },
 salt:String,
 },{timestamps:true}
