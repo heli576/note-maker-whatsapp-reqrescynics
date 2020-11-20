@@ -22,6 +22,8 @@ const note = require("./models/notes");
 const psid = require("./models/psids");
 //import ROUTES
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const noteRoutes = require("./routes/notes");
 const { post } = require('./routes/auth');
 const Jwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
@@ -32,7 +34,8 @@ try {
   mongoose.connect(process.env.DATABASE || process.env.MONGO_URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+      useFindAndModify: false
   }).then(() => console.log("DB connected"));
 } catch (err) { console.log(err) }
 
@@ -46,6 +49,8 @@ app.use(cors());
 
 //routes middleware --all routes will begin with /api
 app.use("/api", authRoutes);
+app.use("/api", noteRoutes);
+app.use("/api", userRoutes);
 
 //---------- ROUTES TO FETCH ALL NOTEs ----------
 

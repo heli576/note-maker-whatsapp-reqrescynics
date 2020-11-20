@@ -16,6 +16,10 @@ const userSchema=new mongoose.Schema({
    required:true,
   },
 salt:String,
+history:{
+  type:Array,
+  default:[]
+}
 },{timestamps:true}
 );
 
