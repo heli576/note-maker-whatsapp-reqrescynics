@@ -481,6 +481,19 @@ a
     margin-left: 20px;
 }
 
+#homeLogo
+{
+    /* background-color: rgb(0, 77, 66); */
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-size: cover;
+    background-image: url(../../images/logo.png);
+    margin-right: 20px;
+    position: relative;
+    top: 15px;
+}
+
 @media only screen and (max-width: 900px)
 {
     #homeFooter span
@@ -491,4 +504,11 @@ a
         opacity: 0.9;
     }   
 
+    #homeLogo
+    {
+        top: 5px;
+        transform: scale(1.2);
+    }
+
 }
+
