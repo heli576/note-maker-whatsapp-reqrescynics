@@ -8,3 +8,22 @@ height: 100%;
 .nav-container{
   margin:auto;
 }
+
+.downloadButton
+{
+  border: solid 1px rgb(0, 153, 204) ;
+  padding: 10px;
+  transition:  all 0.3s;
+  width: 100%;
+  text-align: center;
+}
+
+.downloadButton .lni
+{
+  margin-right: 15px;
+}
+
+.downloadButton:hover
+{
+  transform: scale(0.95);
+}

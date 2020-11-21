@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 ...theme.spreadThis,
 navlink:{
   textDecoration:"none",
-  color:"#000"
+  color: 'rgb(0, 77, 66)'
 },
 textField:{
   [theme.breakpoints.down('sm')]: {
@@ -41,7 +41,7 @@ marginTop:120,
 logo:{
   height:80,
   width:80,
-  marginTop:-50
+  marginTop:0
 }
 }));
 
@@ -94,7 +94,7 @@ const signInForm=()=>(
     id="username"
     name="username"
     type="text"
-    label="Username"
+    label="WhatApp Number"
     className={classes.textField}
 value={username}
     onChange={handleChange("username")}
@@ -118,7 +118,8 @@ value={username}
     {showLoading()}
     </Button>
     <br />
-    <small>Don't have an account? Signup <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+thirty-applied" target="_blank"  className={classes.navlink}>here</a></small>
+    <br />
+    <small>Don't have an account? <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+thirty-applied" target="_blank"  className={classes.navlink}>Signup here</a></small>
     </form>
       </Paper>
     </Grid>

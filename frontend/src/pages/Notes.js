@@ -44,7 +44,7 @@ wanote: {
     },
     walink:{
       color:"#0099cc",
-      fontSize:20
+      fontSize:20,
     },
     mestext:{
       //color:"#0a7af9"
@@ -56,7 +56,14 @@ wanote: {
     marginTop:20,
     textAlign:"right"
   },
-
+  subheading:
+  {
+    width: '100%',
+    backgroundColor: "white",
+    position:'relative',
+    top:'-7px',
+    padding:'5px'
+  }
 
 }));
 
@@ -76,12 +83,22 @@ const loadNotes=(userId,token)=>{
   })
 }
 
+const downloadButton = <div className = 'downloadButton'> 
+<i className="lni lni-download"></i>
+Download File
+</div>
 
   const destroy=(noteId)=>{
   const userId=isAuthenticated().user._id;
-  //console.log(userId);
   deleteNote(noteId,userId,token).then(data=>{
-
+    document.getElementById(noteId).style.transition= 'all 0.5s'
+    document.getElementById(noteId).style.transform= 'scale(0)'
+    document.getElementById(noteId).style.opacity= '0'
+    setTimeout(() => {
+      document.getElementById(noteId).style.display = 'none'
+      
+    }, 500);
+    
       loadNotes();
 
   })
@@ -104,12 +121,12 @@ const showHistory=history=>{
         if(h.source==="whatsapp"){
           if(h.isAttachment==="true"){
             return(
-              <div>
+              <div id={h._id}>
               <Card className={classes.wanote} variant="outlined">
 
 
                   <CardContent>
-                  <div className={classes.icon}>
+                  <div className={classes.icon} >
                   <Tooltip title="Bookmark">
                   <IconButton>
                   <BookmarksIcon color="primary"/>
@@ -122,7 +139,7 @@ const showHistory=history=>{
                   </Tooltip>
                   </div>
                   <CardActions>
-               <a href={h.noteText} target="_blank" className={classes.walink}>{h.noteText}</a>
+               <a href={h.noteText} target="_blank" className={classes.walink}>{downloadButton}</a>
              </CardActions>
                   <Typography className={classes.pos} color="textSecondary">
                        {moment(h.createdAt).fromNow()}
@@ -133,7 +150,7 @@ const showHistory=history=>{
             )
           }else{
             return(
-              <div>
+              <div id={h._id}>
               <Card className={classes.wanote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
@@ -162,7 +179,7 @@ const showHistory=history=>{
         }else{
           if(h.isAttachment==="true"){
             return(
-              <div>
+              <div id={h._id}>
               <Card className={classes.mesnote} variant="outlined">
 
                   <CardContent>
@@ -179,7 +196,7 @@ const showHistory=history=>{
                   </Tooltip>
                   </div>
                   <CardActions>
-               <a href={h.noteText} target="_blank"className={classes.meslink}>{h.noteText}</a>
+               <a href={h.noteText} target="_blank"className={classes.meslink}>{downloadButton}</a>
              </CardActions>
                   <Typography className={classes.pos} color="textSecondary">
                        {moment(h.createdAt).fromNow()}
@@ -190,7 +207,7 @@ const showHistory=history=>{
             )
           }else{
             return(
-              <div>
+              <div id={h._id}>
               <Card className={classes.mesnote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
@@ -235,7 +252,7 @@ return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}
 
 
   <Typography className={classes.heading} color="primary" gutterBottom>
-Your notes
+<div className={classes.subheading}>Your Notes</div>
   </Typography>
 {showHistory(history)}
   </div>

@@ -143,7 +143,8 @@ async function respond(msg, sender) //Takes in the message and decides what to d
       });
       try {
         await newUser.save();
-        await sendMessage(`Password saved.\nUsername: ${removePrefix(sender)}\nPassword: ${msg.Body}\n\nYou can start sending notes now.`, sender)
+        await sendMessage(`You are all set!\nUsername: ${removePrefix(sender)}\nPassword: ${msg.Body}\n\nYou can start sending notes now.`, sender)
+        await sendMessage('You can go to http://bit.do/notesapp-msgr and send a message to link your messenger account as well :)', sender);
       } catch (err) {
         console.log(err);
       }
@@ -167,7 +168,7 @@ async function respond(msg, sender) //Takes in the message and decides what to d
       {
         if (msg.MediaUrl0) {
           try {
-            await sendMessage(`Attachment saved`, sender);
+            await sendMessage(`Attachment saved.`, sender);
             await saveNote(msg.MediaUrl0, sender, "whatsapp", true);
           } catch (err) {
             console.log(err)
@@ -175,7 +176,7 @@ async function respond(msg, sender) //Takes in the message and decides what to d
         }
         else if (msg.Body && msg.body != '') {
           try {
-            await sendMessage(`Note saved:\n${msg.Body}`, sender);
+            await sendMessage(`Note saved.`, sender);
             await saveNote(msg.Body, sender, "whatsapp", false);
           } catch (err) {
             console.log(err)
@@ -194,7 +195,7 @@ async function respond(msg, sender) //Takes in the message and decides what to d
     });
     try {
       await newUser.save();
-      await sendMessage(`Hey there! Just send a password to complete the signup.`, sender)
+      await sendMessage(`Hey there! Just send a password for your account to complete the signup.`, sender)
     } catch (err) {
       console.log(err);
     }

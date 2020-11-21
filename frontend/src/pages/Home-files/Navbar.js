@@ -1,6 +1,6 @@
 import React,{Fragment} from "react";
 import {Link,withRouter} from "react-router-dom";
-import {signout,isAuthenticated} from "../auth";
+import {signout,isAuthenticated} from "../../auth";
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
@@ -23,7 +23,7 @@ return (
     <Toolbar className="nav-container">
     {isAuthenticated()?(
     <Fragment>
-    <Button color="inherit" component={Link} to="/pinnednotes">Bookmarks</Button>
+    <Button color="inherit" component={Link} to="/pinnednotes">Pinned Notes</Button>
     <Button color="inherit"  onClick={() =>signout(() => {
        history.push("/");
      })}>Logout</Button>
@@ -32,7 +32,7 @@ return (
   ):(
     <Fragment>
     <Button color="inherit" component={Link} to="/login">Login</Button>
-    <Button color="inherit" component={Link} to="/">Home</Button>
+    {/* <Button color="inherit" component={Link} to="/">Home</Button> */}
     <Button color="inherit"><a href="https://bit.do/notesapp" target="_blank"  className={classes.navlink}>Signup</a> </Button>
     </Fragment>
   )}
