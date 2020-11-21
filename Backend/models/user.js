@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 const crypto=require("crypto");
 const { v1: uuidv1 } = require('uuid');
 
+
 const userSchema=new mongoose.Schema({
   username:{
     type:String,
@@ -18,7 +19,7 @@ const userSchema=new mongoose.Schema({
 salt:String,
 history:{
   type:Array,
-  default:[]
+default:[]
 }
 },{timestamps:true}
 );

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {isAuthenticated,getNotes} from "../auth";
+import {isAuthenticated,getNotes,deleteNote} from "../auth";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../components/Navbar";
@@ -9,7 +9,9 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from "@material-ui/core/Grid";
-import PinDropIcon from '@material-ui/icons/PinDrop';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { red } from '@material-ui/core/colors';
 import Bg from "../images/bg.png";
@@ -63,7 +65,8 @@ const classes = useStyles();
 const [history,setHistory]=useState([]);
 const {user:{_id,username}}=isAuthenticated();
   const token = isAuthenticated().token;
-const init=(userId,token)=>{
+
+const loadNotes=(userId,token)=>{
   getNotes(userId,token).then(data=>{
     if(data.error){
       console.log(data.error);
@@ -72,8 +75,22 @@ const init=(userId,token)=>{
     }
   })
 }
+
+
+  const destroy=(noteId)=>{
+  const userId=isAuthenticated().user._id;
+  //console.log(userId);
+  deleteNote(noteId,userId,token).then(data=>{
+
+      loadNotes();
+
+  })
+}
+
+
+
 useEffect(()=>{
-  init(_id,token);
+  loadNotes(_id,token);
 },[]);
 
 const showHistory=history=>{
@@ -93,8 +110,16 @@ const showHistory=history=>{
 
                   <CardContent>
                   <div className={classes.icon}>
-                  <PinDropIcon color="primary"/>
+                  <Tooltip title="Bookmark">
+                  <IconButton>
+                  <BookmarksIcon color="primary"/>
+                  </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                  <IconButton onClick={() => destroy(h._id)}>
                   <DeleteIcon style={{ color: red[900] }}/>
+                  </IconButton>
+                  </Tooltip>
                   </div>
                   <CardActions>
                <a href={h.noteText} target="_blank" className={classes.walink}>{h.noteText}</a>
@@ -112,8 +137,16 @@ const showHistory=history=>{
               <Card className={classes.wanote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
-                   <PinDropIcon color="primary"/>
+                   <Tooltip title="Bookmark">
+                   <IconButton>
+                   <BookmarksIcon color="primary"/>
+                   </IconButton>
+                   </Tooltip>
+                   <Tooltip title="Delete">
+                   <IconButton onClick={() => destroy(h._id)}>
                    <DeleteIcon style={{ color: red[900] }}/>
+                   </IconButton>
+                   </Tooltip>
                    </div>
                     <Typography variant="h6">
                        {h.noteText}
@@ -134,8 +167,16 @@ const showHistory=history=>{
 
                   <CardContent>
                   <div className={classes.icon}>
-                  <PinDropIcon color="secondary" />
-                  <DeleteIcon style={{ color: red[900] }} />
+                  <Tooltip title="Bookmark">
+                  <IconButton>
+                  <BookmarksIcon color="secondary"/>
+                  </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                  <IconButton onClick={() => destroy(h._id)}>
+                  <DeleteIcon style={{ color: red[900] }}/>
+                  </IconButton>
+                  </Tooltip>
                   </div>
                   <CardActions>
                <a href={h.noteText} target="_blank"className={classes.meslink}>{h.noteText}</a>
@@ -153,8 +194,16 @@ const showHistory=history=>{
               <Card className={classes.mesnote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
-                   <PinDropIcon color="secondary"/>
-                   <DeleteIcon style={{ color: red[900] }} />
+                   <Tooltip title="Bookmark">
+                   <IconButton>
+                   <BookmarksIcon color="secondary"/>
+                   </IconButton>
+                   </Tooltip>
+                   <Tooltip title="Delete">
+                   <IconButton onClick={() => destroy(h._id)}>
+                   <DeleteIcon style={{ color: red[900] }}/>
+                   </IconButton>
+                   </Tooltip>
                    </div>
                     <Typography variant="h6" className={classes.mestext}>
                        {h.noteText}

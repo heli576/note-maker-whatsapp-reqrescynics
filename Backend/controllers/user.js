@@ -36,7 +36,7 @@ const noteId=req.params.noteId;
 var index = history.map(x => {
   return x.Id;
 }).indexOf(noteId);
-
+console.log(index);
 history.splice(index, 1);
 //console.log(history);
 User.findOneAndUpdate({_id:req.profile._id},{history:history},(error,data)=>{

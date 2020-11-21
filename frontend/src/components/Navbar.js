@@ -23,7 +23,7 @@ return (
     <Toolbar className="nav-container">
     {isAuthenticated()?(
     <Fragment>
-    <Button color="inherit" component={Link} to="/pinnednotes">Pinned Notes</Button>
+    <Button color="inherit" component={Link} to="/pinnednotes">Bookmarks</Button>
     <Button color="inherit"  onClick={() =>signout(() => {
        history.push("/");
      })}>Logout</Button>
