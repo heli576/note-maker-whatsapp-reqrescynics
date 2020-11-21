@@ -99,3 +99,34 @@ export const deleteNote = (noteId,userId,token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const appendPinNote = (noteId,userId,token) => {
+    return fetch(`${API}/pinnote/${noteId}/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getPinNotes = (userId, token) => {
+    return fetch(`${API}/pinnotes/by/user/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

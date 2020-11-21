@@ -81,9 +81,19 @@ User.findOneAndUpdate({_id:req.profile._id},{$push:{pinnotes:pinnotes}},{new:tru
 })
 
 });
+}
 
-
-
-
+exports.getPinNotes=(req,res)=>{
+  const id=req.params.userId;
+  //console.log(id);
+  User.findById(id).exec((err,user)=>{
+    //console.log(user.pinnotes);
+    if(err){
+      return res.status(400).json({
+        error:errorHandler(err)
+      })
+    }
+    res.json(user.pinnotes);
+  })
 
 }

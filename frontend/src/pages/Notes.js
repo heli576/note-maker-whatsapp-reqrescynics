@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {isAuthenticated,getNotes,deleteNote} from "../auth";
+import {isAuthenticated,getNotes,deleteNote,appendPinNote} from "../auth";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../components/Navbar";
@@ -83,7 +83,7 @@ const loadNotes=(userId,token)=>{
   })
 }
 
-const downloadButton = <div className = 'downloadButton'> 
+const downloadButton = <div className = 'downloadButton'>
 <i className="lni lni-download"></i>
 Download File
 </div>
@@ -96,12 +96,17 @@ Download File
     document.getElementById(noteId).style.opacity= '0'
     setTimeout(() => {
       document.getElementById(noteId).style.display = 'none'
-      
+
     }, 500);
-    
+
       loadNotes();
 
   })
+}
+
+const addPinNotes=(noteId)=>{
+  const userId=isAuthenticated().user._id;
+  appendPinNote(noteId,userId,token);
 }
 
 
@@ -128,7 +133,7 @@ const showHistory=history=>{
                   <CardContent>
                   <div className={classes.icon} >
                   <Tooltip title="Bookmark">
-                  <IconButton>
+                  <IconButton onClick={() => addPinNotes(h._id)}>
                   <BookmarksIcon color="primary"/>
                   </IconButton>
                   </Tooltip>
@@ -155,7 +160,7 @@ const showHistory=history=>{
                    <CardContent>
                    <div className={classes.icon}>
                    <Tooltip title="Bookmark">
-                   <IconButton>
+                   <IconButton onClick={() => addPinNotes(h._id)}>
                    <BookmarksIcon color="primary"/>
                    </IconButton>
                    </Tooltip>
@@ -185,7 +190,7 @@ const showHistory=history=>{
                   <CardContent>
                   <div className={classes.icon}>
                   <Tooltip title="Bookmark">
-                  <IconButton>
+                  <IconButton onClick={() => addPinNotes(h._id)}>
                   <BookmarksIcon color="secondary"/>
                   </IconButton>
                   </Tooltip>
@@ -212,7 +217,7 @@ const showHistory=history=>{
                    <CardContent>
                    <div className={classes.icon}>
                    <Tooltip title="Bookmark">
-                   <IconButton>
+                   <IconButton onClick={() => addPinNotes(h._id)}>
                    <BookmarksIcon color="secondary"/>
                    </IconButton>
                    </Tooltip>
