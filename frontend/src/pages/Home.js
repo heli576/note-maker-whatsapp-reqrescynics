@@ -55,7 +55,7 @@ function Home() {
                     <br />
                     <h3>How does it work?</h3>
                     <ul>
-                        <li>Go to <a href="https://bit.do/notesapp-msgr" target='_blank'>this link</a> and send a message saying <b>'Join'</b> to sign up using WhatsApp.</li>
+                        <li>Go to <a href="https://bit.do/notesapp" target='_blank'>this link</a> and send a message saying <b>'Join'</b> to sign up using WhatsApp.</li>
                         <li>You will be asked for a password. Reply with the password you want to set for your new account.</li>
                         <li>That's it, your NoteApp account is ready to use. You will be guided on how to link your Messenger account (optional).</li>
                         <li>Adding notes is as simple as sending text or voice notes to us.</li>

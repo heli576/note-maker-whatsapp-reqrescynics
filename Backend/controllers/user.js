@@ -63,7 +63,7 @@ exports.getNotes=(req,res)=>{
   })
 }
 
-exports.addPinNotes=(req,res)=>{
+exports.addPinNote=(req,res)=>{
   let pinnotes=[];
 const noteId=req.params.noteId;
 Note.findById(noteId).exec((err,note)=>{
@@ -82,6 +82,34 @@ User.findOneAndUpdate({_id:req.profile._id},{$push:{pinnotes:pinnotes}},{new:tru
 
 });
 }
+
+exports.addPinNotes = async (req,res) => {
+  try{
+    let tempNote = await Note.findOne({_id: req.params.noteId});
+    let tempUser = await User.findOne({_id: req.profile._id});
+    // console.log(tempUser.username, tempNote.noteText)
+    let pinArr = await tempUser.pinnotes;
+    let newArr=[]
+    let found = false;
+  for(n of pinArr)
+  {
+    if(n.noteText === tempNote.noteText) 
+    {
+      found = true;
+    }
+    else
+    {
+      newArr = [n ,...newArr];
+    }
+  }
+
+  if(found == false) newArr.push(tempNote)
+
+    await User.findOneAndUpdate({_id:req.profile._id}, {pinnotes: newArr})
+} catch(err){console.log(err)}
+  
+}
+
 
 exports.getPinNotes=(req,res)=>{
   const id=req.params.userId;

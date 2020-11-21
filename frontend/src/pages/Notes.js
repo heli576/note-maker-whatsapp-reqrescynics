@@ -126,7 +126,7 @@ const showHistory=history=>{
         if(h.source==="whatsapp"){
           if(h.isAttachment==="true"){
             return(
-              <div id={h._id}>
+              <div id={h._id} className="notecard">
               <Card className={classes.wanote} variant="outlined">
 
 
@@ -147,7 +147,8 @@ const showHistory=history=>{
                <a href={h.noteText} target="_blank" className={classes.walink}>{downloadButton}</a>
              </CardActions>
                   <Typography className={classes.pos} color="textSecondary">
-                       {moment(h.createdAt).fromNow()}
+                  <i className = 'lni lni-whatsapp'></i>
+                       {" • "+moment(h.createdAt).fromNow()}
                      </Typography>
                    </CardContent>
                  </Card>
@@ -155,7 +156,7 @@ const showHistory=history=>{
             )
           }else{
             return(
-              <div id={h._id}>
+              <div id={h._id} className="notecard">
               <Card className={classes.wanote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
@@ -174,7 +175,8 @@ const showHistory=history=>{
                        {h.noteText}
                      </Typography>
                      <Typography className={classes.pos} color="textSecondary">
-                       {moment(h.createdAt).fromNow()}
+                     <i className = 'lni lni-whatsapp'></i>
+                       {" • "+moment(h.createdAt).fromNow()}
                      </Typography>
                    </CardContent>
                  </Card>
@@ -184,7 +186,7 @@ const showHistory=history=>{
         }else{
           if(h.isAttachment==="true"){
             return(
-              <div id={h._id}>
+              <div id={h._id} className="notecard">
               <Card className={classes.mesnote} variant="outlined">
 
                   <CardContent>
@@ -204,7 +206,8 @@ const showHistory=history=>{
                <a href={h.noteText} target="_blank"className={classes.meslink}>{downloadButton}</a>
              </CardActions>
                   <Typography className={classes.pos} color="textSecondary">
-                       {moment(h.createdAt).fromNow()}
+                  <i className = 'lni lni-facebook-messenger'></i>
+                       {" • "+moment(h.createdAt).fromNow()}
                      </Typography>
                    </CardContent>
                  </Card>
@@ -212,7 +215,7 @@ const showHistory=history=>{
             )
           }else{
             return(
-              <div id={h._id}>
+              <div id={h._id} className="notecard">
               <Card className={classes.mesnote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
@@ -232,7 +235,8 @@ const showHistory=history=>{
                      </Typography>
 
                      <Typography className={classes.pos} color="textSecondary">
-                       {moment(h.createdAt).fromNow()}
+                       <i className = 'lni lni-facebook-messenger'></i>
+                       {" • "+moment(h.createdAt).fromNow()}
                      </Typography>
                    </CardContent>
                  </Card>
@@ -257,7 +261,8 @@ return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}
 
 
   <Typography className={classes.heading} color="primary" gutterBottom>
-<div className={classes.subheading}>Your Notes</div>
+<div className={classes.subheading}>
+  Your Notes</div>
   </Typography>
 {showHistory(history)}
   </div>

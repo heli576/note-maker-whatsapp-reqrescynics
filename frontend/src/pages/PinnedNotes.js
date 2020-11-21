@@ -183,7 +183,7 @@ return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}
 
 
   <Typography className={classes.heading} color="primary" gutterBottom>
-<div className={classes.subheading}>Your Bookmarked Notes</div>
+<div className={classes.subheading}><Link to='/notes' style={{color: 'rgb(0,77,66)', fontSize: "0.7em", marginRight: '30px'}}><i className='lni lni-chevron-left'></i></Link>{' '}Your Bookmarked Notes</div>
   </Typography>
 {showPinnedNotes(pinnedNotes)}
   </div>

@@ -27,3 +27,15 @@ height: 100%;
 {
   transform: scale(0.95);
 }
+@media only screen and (max-width: 900px)
+{
+.notecard
+{
+  /* max-width: calc(100vw - 20px); */
+  min-width: max-content;
+  transform: scale(0.75);
+  position: relative;
+  right: 60px;
+  margin: 0 !important;
+}
+}
