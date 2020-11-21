@@ -2,6 +2,7 @@ const User=require("../models/user");
 const jwt=require("jsonwebtoken");//generate signed token
 const expressJwt=require("express-jwt");//authorization check
 const {errorHandler}=require("../helpers/dbErrorHandler");
+const { createHmac } = require("crypto");
 
 
 
@@ -27,10 +28,11 @@ exports.signup = (req, res) => {
 exports.signin=(req,res)=>{
   //find user based on username
   const {username,password}=req.body;
-  User.findOne({username},(err,user)=>{
+  User.findOne({$or:[{username},{username: `whatsapp:+${username}`}]},(err,user)=>{
     if(err||!user){
       return res.status(400).json({error:"Username does not exist"});
     }
+
     //validate if user matches
     //create authenticate method in user model
     if(!user.authenticate(password)){
