@@ -69,13 +69,17 @@ export const isAuthenticated=()=>{
   }
 };
 
-exports.isAuth=(req,res,next)=>{
-console.log(req.profile._id);
-console.log(req.auth._id);
- let user = req.profile && req.auth && req.profile._id == req.auth._id;
-
-  if(!user){
-    return res.status(403).json({error:"Access denied"});
-  }
-  next();
+export const getNotes = (userId, token) => {
+    return fetch(`${API}/notes/by/user/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
 };

@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const cors = require("cors");
-const request = require('request')
+const request = require('request');
 
 ////twilio_credentials
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -263,7 +263,7 @@ async function handleMessage(sender_psid, received_message) {
     response = {
       text: replyText
     };
-  } 
+  }
    if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;

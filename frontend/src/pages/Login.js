@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Bg from "../images/bg.png";
 
 const useStyles = makeStyles((theme) => ({
 ...theme.spreadThis,
@@ -116,7 +117,7 @@ value={username}
     {showLoading()}
     </Button>
     <br />
-    <small>Don't have an account? Signup <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+great-since&app_absent=0" target="_blank"  className={classes.navlink}>here</a></small>
+    <small>Don't have an account? Signup <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+thirty-applied" target="_blank"  className={classes.navlink}>here</a></small>
     </form>
       </Paper>
     </Grid>
@@ -153,7 +154,7 @@ loading&&(<CircularProgress size={20} className={classes.progress}/>);
 
   return(
 
-  <div className={classes.root}>
+  <div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100vh'}}>
       <Navbar/>
       <div>
 {signInForm()}
