@@ -29,6 +29,27 @@ User.findOneAndUpdate({_id:req.profile._id},{$push:{history:history}},{new:true}
 
 }
 
+exports.deleteNotes=(req,res,next)=>{
+
+let history = req.profile.history;
+const noteId=req.params.noteId;
+var index = history.map(x => {
+  return x.Id;
+}).indexOf(noteId);
+
+history.splice(index, 1);
+//console.log(history);
+User.findOneAndUpdate({_id:req.profile._id},{history:history},(error,data)=>{
+  if(error){
+    return res.status(400).json({
+      error:"Could not update history."
+    })
+  }
+  next();
+})
+
+}
+
 exports.getNotes=(req,res)=>{
   Note.find({user:req.profile._id})
   .populate('user','_id username')

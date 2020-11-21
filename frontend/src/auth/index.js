@@ -83,3 +83,19 @@ export const getNotes = (userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const deleteNote = (noteId,userId,token) => {
+    return fetch(`${API}/note/${noteId}/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
