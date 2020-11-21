@@ -346,7 +346,7 @@ function removePrefix(str)//Removes "whatsapp:+" prefix from the given string
   return newstr;
 }
 
-async function saveNote(noteText, username, source = "whatsapp", isAttachment = false) //Saves the note the MongoDB
+async function saveNote(noteText, username, source = "whatsapp", isAttachment = false) //Saves the note to MongoDB
 {
   let tempUser = await user.findOne({username: `${username}`})
   let newNote = new note({
@@ -356,17 +356,10 @@ async function saveNote(noteText, username, source = "whatsapp", isAttachment = 
     isAttachment: isAttachment
   })
   let historyArr = [newNote, ...tempUser.history]
-  // historyArr.push(newNote);
-  // console.log(history)
+
   try {
     await newNote.save();
     await user.findOneAndUpdate({_id:tempUser._id},{history: historyArr})
-    //  (error,data)=>{
-    //   if(error){
-    //     console.log({
-    //       error:"Could not update history."
-    //     })
-    //   }})
   } catch (err) { console.log(err) }
 }
 
@@ -387,7 +380,7 @@ async function frameMessengerReply(user_psid, msgText, isAttachment)//Handles me
     else return 'Note saved: ' + msgText
   }
   else {
-    return `Go to https://wa.me/%2B14155238886?text=link:${user_psid} and proceed to send message to tie your WhatsApp account.`;
+    return `Go to https://wa.me/%2B14155238886?text=link:${user_psid} and proceed to send a message to tie your WhatsApp account.`;
   }
 }
 
