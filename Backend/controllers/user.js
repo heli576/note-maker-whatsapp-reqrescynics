@@ -62,3 +62,28 @@ exports.getNotes=(req,res)=>{
     res.json(notes);
   })
 }
+
+exports.addPinNotes=(req,res)=>{
+  let pinnotes=[];
+const noteId=req.params.noteId;
+Note.findById(noteId).exec((err,note)=>{
+//console.log(note);
+pinnotes.push(note);
+console.log(pinnotes);
+User.findOneAndUpdate({_id:req.profile._id},{$push:{pinnotes:pinnotes}},{new:true},(error,data)=>{
+  if(error){
+    return res.status(400).json({
+      error:"Could not update pinnotes."
+    })
+  }else{
+    res.json("Note is pinned");
+  }
+})
+
+});
+
+
+
+
+
+}

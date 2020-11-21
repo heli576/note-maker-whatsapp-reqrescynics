@@ -20,6 +20,10 @@ salt:String,
 history:{
   type:Array,
 default:[]
+},
+pinnotes:{
+  type:Array,
+default:[]
 }
 },{timestamps:true}
 );
