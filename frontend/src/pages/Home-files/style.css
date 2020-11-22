@@ -222,10 +222,10 @@ a
 #mockupimgcon img
 {
     height: calc(100vh - 200px);
-    margin-top: 140px;
+    margin-top: 170px;
     float: right;
-    transform: rotate(20deg);
-    margin-right: 200px;
+    /* transform: rotate(20deg); */
+    margin-right: 100px;
 }
 
 @media only screen and (max-width: 900px)
@@ -262,11 +262,12 @@ a
     #mockupimgcon img
     {
         height: auto;
-        width: 50%;
+        width: 75%;
         margin-top: 20px;
+        margin-bottom: -30px;
         float: none;
-        transform: rotate(20deg);
-        margin-left: 25vw;
+        /* transform: rotate(20deg); */
+        margin-left: 15vw;
     }
 }
 

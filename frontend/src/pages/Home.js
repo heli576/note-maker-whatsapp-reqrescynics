@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Home-files/Navbar";
 import './Home-files/style.css'
 
-import mockup from './Home-files/samplemockup.jpg'
+import mockup from './Home-files/samplemockup.png'
 import flower from './Home-files/flower.jpg'
 import logo from '../images/logo.png'
 import illustration from './Home-files/ills.jpg'
