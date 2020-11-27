@@ -25,6 +25,7 @@ a
 
   html {
     scroll-behavior: smooth;
+  
   }
   /* REMOVE LATER */
 
@@ -78,7 +79,7 @@ a
         grid-template-columns: 100% ;
         grid-template-rows: 100vh;
     }
-    
+
     #bubblecon
     {
         grid-row: 1/ span 1;
@@ -86,7 +87,7 @@ a
         /* opacity: 0.7; */
         /* background-color: red; */
     }
-    
+
     #herotext
     {
         padding-left: 30px;
@@ -95,7 +96,7 @@ a
         grid-row: 1/ span 1;
         grid-column: 1/ span 1;
     }
-    
+
     #mockupimgcon
     {
         grid-row: 2/ span 1;
@@ -145,7 +146,7 @@ a
     font-size: 1.7em;
     /* opacity: 0.6; */
     color: rgb(70, 70, 70);
-    
+
 }
 
 #herotext .lni
@@ -201,12 +202,12 @@ a
 }
 #joinbutton
 {
-    
+
     border: solid 1px rgba(0,0,0, 0.3);
     box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.4);
     color: white;
     background: rgb(0, 77, 66);
-   
+
     opacity: 0.9;
     filter: contrast(1.25) brightness(0.95);
 }
@@ -240,7 +241,7 @@ a
     {
         margin-left: 0;
     }
-    
+
     #bubblecon
     {
         overflow: hidden;
@@ -428,7 +429,7 @@ a
         grid-row: 1/ span 1;
         grid-column: 1/ span 1;
     }
-    
+
     #imgpanel
     {
         grid-row: 2/ span 1;
@@ -499,11 +500,11 @@ a
 {
     #homeFooter span
     {
-        display: block;
+        /*display: block;*/
         margin-bottom: 5px;
         margin-left: 20px;
         opacity: 0.9;
-    }   
+    }
 
     #homeLogo
     {
@@ -512,4 +513,3 @@ a
     }
 
 }
-

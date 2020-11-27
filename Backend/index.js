@@ -330,7 +330,7 @@ async function sendMessage(messageText, reciever)//Sends messageText as WhatsApp
       .create({
         from: 'whatsapp:+14155238886',
         body: messageText,
-        statusCallback: "https://held-fuzzy-save.glitch.me/wa-api/status",
+        statusCallback: "https://4401d84e94bc.ngrok.io/wa-api/status",
         to: reciever
       });
   } catch (err) {

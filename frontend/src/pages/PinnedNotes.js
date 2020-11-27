@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import {isAuthenticated,getPinNotes} from "../auth";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbarr";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import Card from '@material-ui/core/Card';
@@ -54,7 +54,7 @@ wanote: {
   subheading:
   {
     width: '100%',
-    backgroundColor: "white",
+    //backgroundColor: "white",
     position:'relative',
     top:'-7px',
     padding:'5px'
@@ -63,6 +63,7 @@ wanote: {
 }));
 
 const PinnedNotes=()=>{
+  document.getElementsByTagName('body')[0].style.backgroundImage = 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")'
 const classes = useStyles();
 const [pinnedNotes,setPinnedNotes]=useState([]);
 const {user:{_id,username}}=isAuthenticated();
@@ -177,13 +178,13 @@ const showPinnedNotes=pinnedNotes=>{
   )
 }
 
-return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}}>
+return (<div>
     <Navbar/>
   <div>
 
 
   <Typography className={classes.heading} color="primary" gutterBottom>
-<div className={classes.subheading}><Link to='/notes' style={{color: 'rgb(0,77,66)', fontSize: "0.7em", marginRight: '30px'}}><i className='lni lni-chevron-left'></i></Link>{' '}Your Bookmarked Notes</div>
+<div className={classes.subheading}>Your Bookmarked Notes</div>
   </Typography>
 {showPinnedNotes(pinnedNotes)}
   </div>

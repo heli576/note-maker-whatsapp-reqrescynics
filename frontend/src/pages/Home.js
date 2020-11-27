@@ -26,7 +26,7 @@ function Home() {
                     <span id='podeasy'>Make notes from your favourite messaging apps.</span>
                     <div id="joinintro">Currently supports <i class="lni lni-whatsapp"></i><i class="lni lni-facebook-messenger"></i></div>
                     <br />
-                    <a href="https://bit.do/notesapp" target='_blank'>
+                    <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+great-since&app_absent=0" target='_blank'>
                         <div id="joinbutton" className='homepagebutton'>Join Now</div>
                     </a>
                     <a href="#homegrid2">
@@ -41,7 +41,7 @@ function Home() {
             <div id="homegrid2">
                 <div className="panel" id='imgpanel'>
                     <img src={illustration} alt="" />
-                    <a href='https://bit.do/notesapp' target='_blank'><div id="createaccountbutton" className='homepagebutton'>
+                    <a href='https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+great-since&app_absent=0' target='_blank'><div id="createaccountbutton" className='homepagebutton'>
                         <i class="lni lni-whatsapp"></i>  Open WhatsApp and Sign Up
             </div></a>
 
@@ -55,7 +55,7 @@ function Home() {
                     <br />
                     <h3>How does it work?</h3>
                     <ul>
-                        <li>Go to <a href="https://bit.do/notesapp" target='_blank'>this link</a> and send a message saying <b>'Join'</b> to sign up using WhatsApp.</li>
+                        <li>Go to <a href="https://api.whatsapp.com/send/?phone=%2B14155238886&text=join+great-since&app_absent=0" target='_blank'>this link</a> and send a message saying <b>'Join'</b> to sign up using WhatsApp.</li>
                         <li>You will be asked for a password. Reply with the password you want to set for your new account.</li>
                         <li>That's it, your NoteApp account is ready to use. You will be guided on how to link your Messenger account (optional).</li>
                         <li>Adding notes is as simple as sending text or voice notes to us.</li>

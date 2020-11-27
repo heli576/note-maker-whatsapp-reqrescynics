@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Navbar=({history})=>{
+const Navbarr=({history})=>{
   const classes = useStyles();
 return (
   <div>
@@ -23,7 +23,7 @@ return (
     <Toolbar className="nav-container">
     {isAuthenticated()?(
     <Fragment>
-    <Button color="inherit" component={Link} to="/pinnednotes">Bookmarks</Button>
+    <Button color="inherit" component={Link} to="/notes">Notes</Button>
     <Button color="inherit"  onClick={() =>signout(() => {
        history.push("/");
      })}>Logout</Button>
@@ -44,4 +44,4 @@ return (
 
 
 
-export default withRouter(Navbar);
+export default withRouter(Navbarr);

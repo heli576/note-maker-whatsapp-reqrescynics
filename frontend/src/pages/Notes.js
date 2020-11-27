@@ -15,7 +15,8 @@ import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { red } from '@material-ui/core/colors';
 import Bg from "../images/bg.png";
-
+import Pdf from "react-to-pdf";
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 
 const useStyles = makeStyles((theme) => ({
 heading:{
@@ -59,7 +60,7 @@ wanote: {
   subheading:
   {
     width: '100%',
-    backgroundColor: "white",
+    //backgroundColor: "white",
     position:'relative',
     top:'-7px',
     padding:'5px'
@@ -68,10 +69,14 @@ wanote: {
 }));
 
 const Notes=()=>{
+  document.getElementsByTagName('body')[0].style.backgroundImage = 'url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png")'
+
 const classes = useStyles();
 const [history,setHistory]=useState([]);
 const {user:{_id,username}}=isAuthenticated();
   const token = isAuthenticated().token;
+
+  let MyRefs = [];
 
 const loadNotes=(userId,token)=>{
   getNotes(userId,token).then(data=>{
@@ -83,10 +88,7 @@ const loadNotes=(userId,token)=>{
   })
 }
 
-const downloadButton = <div className = 'downloadButton'>
-<i className="lni lni-download"></i>
-Download File
-</div>
+
 
   const destroy=(noteId)=>{
   const userId=isAuthenticated().user._id;
@@ -113,7 +115,12 @@ const addPinNotes=(noteId)=>{
 
 useEffect(()=>{
   loadNotes(_id,token);
-},[]);
+});
+
+const downloadButton = <div className = 'downloadButton'>
+<i className="lni lni-download"></i>
+Download File
+</div>
 
 const showHistory=history=>{
   return(
@@ -123,10 +130,12 @@ const showHistory=history=>{
     <Grid item sm>
     {
       history.slice(0).reverse().map((h,i)=>{
+        const ref = React.createRef();
+                MyRefs.push(ref);
         if(h.source==="whatsapp"){
           if(h.isAttachment==="true"){
             return(
-              <div id={h._id} className="notecard">
+              <div id={h._id} className="notecard" ref={ref}>
               <Card className={classes.wanote} variant="outlined">
 
 
@@ -156,7 +165,7 @@ const showHistory=history=>{
             )
           }else{
             return(
-              <div id={h._id} className="notecard">
+              <div id={h._id} className="notecard" >
               <Card className={classes.wanote} variant="outlined">
                    <CardContent>
                    <div className={classes.icon}>
@@ -170,10 +179,15 @@ const showHistory=history=>{
                    <DeleteIcon style={{ color: red[900] }}/>
                    </IconButton>
                    </Tooltip>
+                   <Pdf targetRef={ref} filename="note.pdf">
+                          {({ toPdf }) => <Tooltip title="Generate PDF"><IconButton onClick={toPdf}><PictureAsPdfIcon color="primary"/></IconButton></Tooltip>}
+                        </Pdf>
                    </div>
+                   <div ref={ref} style={{padding:5}}>
                     <Typography variant="h6">
                        {h.noteText}
                      </Typography>
+                     </div>
                      <Typography className={classes.pos} color="textSecondary">
                      <i className = 'lni lni-whatsapp'></i>
                        {" • "+moment(h.createdAt).fromNow()}
@@ -229,10 +243,15 @@ const showHistory=history=>{
                    <DeleteIcon style={{ color: red[900] }}/>
                    </IconButton>
                    </Tooltip>
+                   <Pdf targetRef={ref} filename="note.pdf">
+                          {({ toPdf }) => <Tooltip title="Generate PDF"><IconButton onClick={toPdf}><PictureAsPdfIcon color="primary"/></IconButton></Tooltip>}
+                        </Pdf>
                    </div>
+                   <div ref={ref} style={{padding:5}}>
                     <Typography variant="h6" className={classes.mestext}>
                        {h.noteText}
                      </Typography>
+                     </div>
 
                      <Typography className={classes.pos} color="textSecondary">
                        <i className = 'lni lni-facebook-messenger'></i>
@@ -255,7 +274,7 @@ const showHistory=history=>{
   )
 }
 
-return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}}>
+return (<div>
     <Navbar/>
   <div>
 
@@ -264,6 +283,7 @@ return (<div style={{backgroundImage:`url(${Bg})`,width: '100vw',height: '100%'}
 <div className={classes.subheading}>
   Your Notes</div>
   </Typography>
+
 {showHistory(history)}
   </div>
   </div>

@@ -61,6 +61,7 @@ exports.getNotes=(req,res)=>{
     }
     res.json(notes);
   })
+  
 }
 
 exports.addPinNote=(req,res)=>{
@@ -93,7 +94,7 @@ exports.addPinNotes = async (req,res) => {
     let found = false;
   for(n of pinArr)
   {
-    if(n.noteText === tempNote.noteText) 
+    if(n.noteText === tempNote.noteText)
     {
       found = true;
     }
@@ -107,7 +108,7 @@ exports.addPinNotes = async (req,res) => {
 
     await User.findOneAndUpdate({_id:req.profile._id}, {pinnotes: newArr})
 } catch(err){console.log(err)}
-  
+
 }
 
 
